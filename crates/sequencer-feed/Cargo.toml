@@ -1,0 +1,22 @@
+[package]
+name = "fulcrum-sequencer-feed"
+version = "0.1.0"
+edition = "2021"
+authors = ["jordy25519"]
+
+[dependencies]
+base64-simd = "0.8.0"
+bumpalo = { version = "3.12.2", features = ["collections"] }
+ethers = "2.0.4"
+http = "0.2.9"
+log = "0.4.17"
+rlp = "*"
+serde = { version = "1.0.162", features = ["derive"] }
+ws-tool = { git = "https://github.com/jordy25519/ws-tool", features = ["async", "async_tls_rustls", "deflate"], branch = "feat/resize-conf-deflate" }
+
+[dev-dependencies]
+hex-literal = "*"
+hex = "*"
+
+[features]
+bench = []

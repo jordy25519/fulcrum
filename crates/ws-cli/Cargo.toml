@@ -1,0 +1,24 @@
+[package]
+name = "fulcrum-ws-cli"
+version = "0.1.0"
+edition = "2021"
+authors = ["jordy25519"]
+
+[dependencies]
+async-trait = "0.1.68"
+bytes = { version = "1.4.0", features = ["serde"] }
+compact_str = "0.7.0"
+ethers-core = "2.0.3"
+ethers-providers = "2.0.3"
+faster-hex = "0.6.1"
+futures-util = "0.3.28"
+isahc = "1.7.2"
+log = "*"
+serde = "1.0.160"
+serde_json = { version = "1.0.96", features = ["raw_value"] }
+tokio = { version = "1.27.0", features = [ "full" ] }
+tokio-tungstenite = "0.18.0"
+ws-tool = { git = "https://github.com/jordy25519/ws-tool", features = ["async", "async_tls_rustls", "deflate"], branch = "feat/resize-conf-deflate" }
+
+[dev-dependencies]
+env_logger = "*"

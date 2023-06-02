@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.19;
+
+import "forge-std/Test.sol";
+import "forge-std/Vm.sol";
+
+import "../src/SwapMath.sol";
+
+contract SwapMathTest is Test {
+    SwapMath public swapMath;
+
+        let 2_arb = 2_u128 * 10_u128.pow(18_u32);
+        let sqrt_p_x96 = U256::from(2910392625228200618462908431436_u128);
+        let liquidity = 3055895843484221589591460_u128;
+
+        let amount_out = get_amount_out(
+            2_arb,
+            sqrt_p_x96,
+            liquidity,
+            500_u32,
+            true,
+        );
+
+    function testComputeSwapStep() public {
+        viewer = new V3PoolViewer();
+        swapMath = new SwapMath();
+
+                uint24 feePips
+    ) internal pure returns (uint160 sqrtRatioNextX96, uint256 amountIn, uint256 amountOut, uint256 feeAmount) {
+
+    let target_sqrt_price = SqrtPriceMath.get_next_sqrt_price_from_input(
+        current_sqrt_p_x96,
+        liquidity,
+        amount_in.into(),
+        zero_for_one,
+    )
+    .expect("calc ok");
+
+        /// @dev The minimum value that can be returned from #getSqrtRatioAtTick. Equivalent to getSqrtRatioAtTick(MIN_TICK)
+        uint160 MIN_SQRT_RATIO = 4295128739;
+        /// @dev The maximum value that can be returned from #getSqrtRatioAtTick. Equivalent to getSqrtRatioAtTick(MAX_TICK)
+        uint160 MAX_SQRT_RATIO = 1461446703485210103287273052203988822378723970342;
+        uint sqrtRatioTargetX96 = MIN_SQRT_RATIO + 1;
+        (,,,uint amountOut,) = swapMath.computeSwapStep(
+            uint(2910392625228200618462908431436),
+            sqrtRatioTargetX96, // does this match rust calcs?
+            uint128(3055895843484221589591460),
+            2e18, // 2 ARB
+            500,
+        );
+
+        assertEq(uint(2697730325051490989803), amountOut);
+    }
+}

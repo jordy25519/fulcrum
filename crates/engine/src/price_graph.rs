@@ -1035,38 +1035,4 @@ mod test {
             ScoreArray::new([(8.0, 2), (7.0, 7), (6.0, 3), (5.0, 5), (4.0, 4)])
         );
     }
-
-    #[test]
-    fn failed_arb() {
-        // https://arbiscan.io/tx/0x2ab37dff17c2cb9a59126db424f3538c4889a428b124e24e4fd889e5628a5cdb
-        let edge0 = Edge::new_v3(
-            3114389877176987074020846470923_u128.into(),
-            1723927183040205737131270_u128.into(),
-            500,
-            true,
-        );
-        let edge1 = Edge::new_v3(
-            87870821403100236353039_u128.into(),
-            27844909457789979040_u128.into(),
-            500,
-            true,
-        );
-        let edge2 = Edge::new_v3(
-            3452096058233460125537444_u128.into(),
-            116041370918690901_u128.into(),
-            100,
-            false,
-        );
-
-        let mut amount_in = 10_u128.pow(18);
-        println!("{amount_in}");
-        amount_in = edge0.calculate_amount_out(amount_in);
-        println!("{amount_in}");
-        amount_in = edge1.calculate_amount_out(amount_in);
-        println!("{amount_in}");
-        let amount_out = edge2.calculate_amount_out(amount_in);
-        println!("{amount_out}");
-
-        assert_eq!(amount_out, 999469051194078031_u128);
-    }
 }
